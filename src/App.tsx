@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import "./App.css";
 
 function App() {
-  // @ts-ignore
+  // @ts-expect-error: Telegram WebApp is injected globally
   const tg = window.Telegram.WebApp;
 
   const [data, setData] = useState();
