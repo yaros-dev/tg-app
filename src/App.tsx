@@ -15,7 +15,28 @@ function App() {
 
   return (
     <>
-      <div>{data ? data : "Loading..."}</div>
+      <div>
+        {data ? (
+          <table>
+            <thead>
+              <tr>
+                <th>Поле</th>
+                <th>Значение</th>
+              </tr>
+            </thead>
+            <tbody>
+              {Object.entries(data).map(([key, value]) => (
+                <tr key={key}>
+                  <td>{key}</td>
+                  <td>{JSON.stringify(value)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <p>Загрузка данных пользователя или информация недоступна.</p>
+        )}
+      </div>
     </>
   );
 }
