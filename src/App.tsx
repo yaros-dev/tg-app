@@ -1,23 +1,28 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 
-function App() {
-  // @ts-expect-error: Telegram WebApp is injected globally
-  const tg = window.Telegram.WebApp.initData;
-
-  const [data, setData] = useState<string>("");
+export default function App() {
+  const [data, setData] = useState(null);
 
   useEffect(() => {
-    if (tg) {
-      setData(tg);
+    // @ts-expect-error: Telegram WebApp is injected globally
+    if (window.Telegram && window.Telegram.WebApp) {
+      // @ts-expect-error: Telegram WebApp is injected globally
+      const tg = window.Telegram.WebApp.initDataUnsafe;
+      if (tg && tg.user) {
+        setData(tg);
+      } else {
+        console.warn("initData is empty or missing user information.");
+      }
+    } else {
+      console.warn("Telegram WebApp is not available.");
     }
   }, []);
 
   return (
     <>
-      <div>{data ? `${data}` : "Loading..."}</div>
+      {/* @ts-expect-error: Telegram WebApp is injected globally */}
+      <div>{!data ? "Loading..." : `Hello ${data.user.first_name}`}</div>
     </>
   );
 }
-
-export default App;
