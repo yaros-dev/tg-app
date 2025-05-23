@@ -15,7 +15,7 @@ function App() {
 
   return (
     <>
-      <div></div>
+      <div>{data ? data : "Loading..."}</div>
     </>
   );
 }
