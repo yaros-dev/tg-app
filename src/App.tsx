@@ -5,11 +5,11 @@ function App() {
   // @ts-expect-error: Telegram WebApp is injected globally
   const tg = window.Telegram.WebApp.initData;
 
-  const [data, setData] = useState();
+  const [data, setData] = useState<string>("");
 
   useEffect(() => {
     if (tg) {
-      setData(tg.user);
+      setData(tg);
     }
   }, []);
 
